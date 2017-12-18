@@ -1,0 +1,134 @@
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="REGISTRO DE USUARIOS"
+                android:textSize="20dp"
+                android:textAlignment="center"/>
+
+            <EditText
+                android:id="@+id/campId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ID" />
+
+
+            <EditText
+                android:id="@+id/campNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre(s) y Apellidos" />
+
+            <EditText
+                android:id="@+id/campDepartamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Departamento" />
+
+            <EditText
+                android:id="@+id/campDireccionIp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Direccion IP" />
+
+            <EditText
+                android:id="@+id/campMarcamonitor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Marca monitor" />
+
+            <EditText
+                android:id="@+id/campModelomonitor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Modelo monitor" />
+
+            <EditText
+                android:id="@+id/campSeriemonitor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Serv. tag monitor" />
+
+            <EditText
+                android:id="@+id/campMarcaCPU"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Marca CPU" />
+
+            <EditText
+                android:id="@+id/campModeloCPU"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Modelo CPU" />
+
+            <EditText
+                android:id="@+id/campSerieCPU"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Serv. tag CPU" />
+
+            <EditText
+                android:id="@+id/campMarcateclado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Marca teclado" />
+
+            <EditText
+                android:id="@+id/campModeloteclado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Modelo teclado" />
+
+            <EditText
+                android:id="@+id/campSerieteclado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Serv. tag teclado" />
+
+            <EditText
+                android:id="@+id/campMarcamouse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Marca mouse" />
+
+            <EditText
+                android:id="@+id/campModelomouse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Modelo mouse" />
+
+            <EditText
+                android:id="@+id/campSeriemouse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Serv. tag mouse" />
+
+            <Button
+                android:id="@+id/btnGuardarRegistro"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Registrar Usuario" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

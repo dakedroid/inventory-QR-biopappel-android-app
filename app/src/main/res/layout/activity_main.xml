@@ -1,0 +1,43 @@
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnLectorQR"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="AbrirQr"
+                android:text="Lector QR" />
+
+            <Button
+                android:id="@+id/btnRegistrar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Registrar usuarios"
+               android:onClick="AbrirRegistrarUsuarios"/>
+
+            <Button
+                android:id="@+id/btnConsultar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Consultar usuarios"
+                android:onClick="AbrirConsultarUsuarios"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

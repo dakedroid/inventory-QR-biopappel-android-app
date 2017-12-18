@@ -1,0 +1,138 @@
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/consulId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ID" />
+
+            <Button
+                android:id="@+id/btnConsulBuscar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Consultar" />
+
+
+            <EditText
+                android:id="@+id/consulNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre(s) y Apellidos" />
+
+            <EditText
+                android:id="@+id/consulDepartamento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Departamento" />
+
+            <EditText
+                android:id="@+id/consulDireccionIp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Direccion IP" />
+
+            <EditText
+                android:id="@+id/consulMarcamonitor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Marca monitor" />
+
+            <EditText
+                android:id="@+id/consulModelomonitor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Modelo monitor" />
+
+            <EditText
+                android:id="@+id/consulSeriemonitor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ser. tag monitor" />
+
+            <EditText
+                android:id="@+id/consulMarcaCPU"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Marca CPU" />
+
+            <EditText
+                android:id="@+id/consulModeloCPU"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Modelo CPU" />
+
+            <EditText
+                android:id="@+id/consulSerieCPU"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Serv. tag CPU" />
+
+            <EditText
+                android:id="@+id/consulMarcateclado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Marca teclado" />
+
+            <EditText
+                android:id="@+id/consulModeloteclado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Modelo teclado" />
+
+            <EditText
+                android:id="@+id/consulSerieteclado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Serv. tag teclado" />
+
+            <EditText
+                android:id="@+id/consulMarcamouse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Marca mouse" />
+
+            <EditText
+                android:id="@+id/consulModelomouse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Modelo mouse" />
+
+            <EditText
+                android:id="@+id/consulSeriemouse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Serv. tag mouse" />
+
+            <Button
+                android:id="@+id/btnConsulActuali"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Actualizar" />
+
+            <Button
+                android:id="@+id/btnConsulElimin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Eliminar" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>
