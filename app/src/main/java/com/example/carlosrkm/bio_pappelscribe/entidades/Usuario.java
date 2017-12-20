@@ -8,6 +8,7 @@ public class Usuario {
     private Integer id;
     private String nombre;
     private String departamento;
+    private String extension;
     private String direccionip;
     private String marcamonitor;
     private String modelomonitor;
@@ -22,7 +23,7 @@ public class Usuario {
     private String modelomouse;
     private String seriemouse;
 
-    public Usuario(Integer id, String nombre, String departamento, String direccionip, String marcamonitor, String modelomonitor, String seriemonitor, String marcacpu, String modelocpu, String seriecpu, String marcateclado, String modeloteclado, String serieteclado, String marcamouse, String modelomouse, String seriemouse) {
+    public Usuario(Integer id, String nombre, String departamento, String extension, String direccionip, String marcamonitor, String modelomonitor, String seriemonitor, String marcacpu, String modelocpu, String seriecpu, String marcateclado, String modeloteclado, String serieteclado, String marcamouse, String modelomouse, String seriemouse) {
 
     }
 
@@ -153,5 +154,13 @@ public class Usuario {
 
     public void setSeriemouse(String seriemouse) {
         this.seriemouse = seriemouse;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 }

@@ -35,6 +35,7 @@ public class DemoGeneratorActivity extends AppCompatActivity {
     private String id;
     private String nombre;
     private String departamento;
+    private String extension;
     private String direccionip;
     private String marcamonitor;
     private String modelomonitor;
@@ -63,6 +64,7 @@ public class DemoGeneratorActivity extends AppCompatActivity {
         id = intent.getStringExtra("id");
         nombre = intent.getStringExtra("nombre");
         departamento = intent.getStringExtra("departamento");
+        extension = intent.getStringExtra("extension");
         direccionip = intent.getStringExtra("direccionip");
         marcamonitor = intent.getStringExtra("marcamonitor");
         modelomonitor = intent.getStringExtra("modelomonitor");
@@ -103,7 +105,7 @@ public class DemoGeneratorActivity extends AppCompatActivity {
         } else {
             try {
 
-                String content = id + "\n" + nombre + "\n" + departamento + "\n" + direccionip + "\n" + marcamonitor + "\n" + modelomonitor + "\n" + seriemonitor + "\n" + marcacpu + "\n" + modelocpu + "\n" + seriecpu + "\n" + marcateclado + "\n" + modeloteclado + "\n" + serieteclado + "\n" + marcamouse + "\n" + modelomouse + "\n" + seriemouse;
+                String content = "id: " + id + "\n" + nombre + "\n" + departamento + "\n" + extension + "\n" + direccionip + "\n" + marcamonitor + "\n" + modelomonitor + "\n" + seriemonitor + "\n" + marcacpu + "\n" + modelocpu + "\n" + seriecpu + "\n" + marcateclado + "\n" + modeloteclado + "\n" + serieteclado + "\n" + marcamouse + "\n" + modelomouse + "\n" + seriemouse;
                 Bitmap qrCode = new QrGenerator.Builder()
                         .content(content)
                         .qrSize(getInputtedInt(mEdtSize, 400))

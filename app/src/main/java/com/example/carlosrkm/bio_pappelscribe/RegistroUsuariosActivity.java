@@ -33,6 +33,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
     EditText campoId;
     EditText campoNombre;
     EditText campoDepartamento;
+    EditText campoExtension;
     EditText campoDireccionIp;
     EditText campoMarcamonitor;
     EditText campoModelomonitor;
@@ -52,6 +53,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
     String TempId,
             TempNombre,
             TempDepartamento,
+            TempExtension,
             TempDireccionIp,
             TempMarcaMonitor,
             TempModeloMonitor,
@@ -77,6 +79,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
         campoId = findViewById(R.id.campId);
         campoNombre =  findViewById(R.id.campNombre);
         campoDepartamento =  findViewById(R.id.campDepartamento);
+        campoExtension = findViewById(R.id.campExtension);
         campoDireccionIp = findViewById(R.id.campDireccionIp);
         campoMarcamonitor = findViewById(R.id.campMarcamonitor);
         campoModelomonitor = findViewById(R.id.campModelomonitor);
@@ -101,6 +104,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
                 InsertData(TempId,
                         TempNombre,
                         TempDepartamento,
+                        TempExtension,
                         TempDireccionIp,
                         TempMarcaMonitor,
                         TempModeloMonitor,
@@ -128,6 +132,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
         values.put(Utilidades.CAMPO_ID, campoId.getText().toString());
         values.put(Utilidades.CAMPO_NOMBRE, campoNombre.getText().toString());
         values.put(Utilidades.CAMPO_DEPARTAMENTO, campoDepartamento.getText().toString());
+        values.put(Utilidades.CAMPO_EXTENSION, campoExtension.getText().toString());
         values.put(Utilidades.CAMPO_DIRECCIONIP, campoDireccionIp.getText().toString());
         values.put(Utilidades.CAMPO_MARCAMONITOR, campoMarcamonitor.getText().toString());
         values.put(Utilidades.CAMPO_MODELOMONITOR, campoModelomonitor.getText().toString());
@@ -144,6 +149,8 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
 
         Long idResultante = db.insert(Utilidades.TABLA_USUARIO, Utilidades.CAMPO_ID, values);
 
+
+
         Toast.makeText(getApplicationContext(),"ID Registro: " + idResultante, Toast.LENGTH_SHORT ).show();
         db.close();
     }
@@ -153,6 +160,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
         TempId = campoId.getText().toString();
         TempNombre = campoNombre.getText().toString();
         TempDepartamento = campoDepartamento.getText().toString();
+        TempExtension = campoExtension.getText().toString();
         TempDireccionIp = campoDireccionIp.getText().toString();
         TempMarcaMonitor = campoMarcamonitor.getText().toString();
         TempModeloMonitor = campoModelomonitor.getText().toString();
@@ -170,7 +178,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
     }
 
 
-    public void InsertData(final String p1, final String p2,  final String p3, final String p4, final String p5, final String p6, final String p7, final String p8, final String p9, final String p10, final String p11, final String p12, final String p13, final String p14, final String p15, final String p16 ){
+    public void InsertData(final String p1, final String p2,  final String p3, final String pext, final String p4, final String p5, final String p6, final String p7, final String p8, final String p9, final String p10, final String p11, final String p12, final String p13, final String p14, final String p15, final String p16 ){
 
         class SendPostReqAsyncTask extends AsyncTask<String, Void, String> {
             @Override
@@ -179,6 +187,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
                 String  Id = p1;
                 String  Nombre = p2;
                 String  Departamento = p3;
+                String  Extension = pext;
                 String  DireccionIp = p4;
                 String  MarcaMonitor = p5;
                 String  ModeloMonitor = p6;
@@ -198,6 +207,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
                 nameValuePairs.add(new BasicNameValuePair("id", Id));
                 nameValuePairs.add(new BasicNameValuePair("nombre", Nombre));
                 nameValuePairs.add(new BasicNameValuePair("departamento", Departamento));
+                nameValuePairs.add(new BasicNameValuePair("extension", Extension));
                 nameValuePairs.add(new BasicNameValuePair("direccionip", DireccionIp));
                 nameValuePairs.add(new BasicNameValuePair("marcamonitor", MarcaMonitor));
                 nameValuePairs.add(new BasicNameValuePair("modelomonitor", ModeloMonitor));
@@ -240,10 +250,13 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
 
                 Toast.makeText(RegistroUsuariosActivity.this, "Data Submit Successfully", Toast.LENGTH_LONG).show();
 
+                limpiar();
+
                 startActivity(new Intent(RegistroUsuariosActivity.this, DemoGeneratorActivity.class)
-                        .putExtra("id", campoId.getText().toString())
+                        .putExtra("id", TempId)
                         .putExtra("nombre", TempNombre)
                         .putExtra("departamento", TempDepartamento)
+                        .putExtra("extension", TempExtension)
                         .putExtra("direccionip",TempDireccionIp)
                         .putExtra("marcamonitor", TempMarcaMonitor)
                         .putExtra("modelomonitor", TempModeloMonitor)
@@ -258,12 +271,36 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
                         .putExtra("modelomouse", TempModeloMouse)
                         .putExtra("seriemouse", TempSerieMouse));
             }
+
+
+
+
+
         }
 
         SendPostReqAsyncTask sendPostReqAsyncTask = new SendPostReqAsyncTask();
 
-        sendPostReqAsyncTask.execute(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
+        sendPostReqAsyncTask.execute(p1, p2, p3, pext, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16);
 
+    }
+
+    private void limpiar() {
+        campoNombre.setText("");
+        campoDepartamento.setText("");
+        campoExtension.setText("");
+        campoDireccionIp.setText("");
+        campoMarcamonitor.setText("");
+        campoModelomonitor.setText("");
+        campoSeriemonitor.setText("");
+        campoMarcaCPU.setText("");
+        campoModeloCPU.setText("");
+        campoSerieCPU.setText("");
+        campoMarcateclado.setText("");
+        campoModeloteclado.setText("");
+        campoSerieteclado.setText("");
+        campoMarcamouse.setText("");
+        campoModelomouse.setText("");
+        campoSeriemouse.setText("");
     }
 
 }

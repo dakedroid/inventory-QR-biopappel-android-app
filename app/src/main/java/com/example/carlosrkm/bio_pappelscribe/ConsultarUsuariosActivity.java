@@ -30,7 +30,7 @@ import java.io.IOException;
 
 public class ConsultarUsuariosActivity extends AppCompatActivity {
 
-    EditText campId, campNombre, campDepartamento, campDireccionIp, campMarcamonitor, campModelomonitor, campSeriemonitor, campMarcaCPU, campModeloCPU, campSerieCPU, campMarcateclado, campModeloteclado, campSerieteclado, campMarcamouse, campModelomouse, campSeriemouse;
+    EditText campId, campNombre, campDepartamento, campExtension, campDireccionIp, campMarcamonitor, campModelomonitor, campSeriemonitor, campMarcaCPU, campModeloCPU, campSerieCPU, campMarcateclado, campModeloteclado, campSerieteclado, campMarcamouse, campModelomouse, campSeriemouse;
 
     ConexionSQLiteHelper conn;
     Button btnConsulBuscar;
@@ -40,6 +40,7 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
     String id;
     String nombre;
     String departamento;
+    String extension;
     String direccionip;
     String marcamonitor;
     String modelomonitor;
@@ -53,6 +54,8 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
     String marcamouse;
     String modelomouse;
     String seriemouse;
+
+    // IP PARA CONSULTAR
 
     String url = "http://192.168.1.68/biopapel-server/consult.php?id=";
 
@@ -69,6 +72,7 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
         campId = findViewById(R.id.consulId);
         campNombre=  findViewById(R.id.consulNombre);
         campDepartamento = findViewById(R.id.consulDepartamento);
+        campExtension = findViewById(R.id.consulExtension);
         campDireccionIp = findViewById(R.id.consulDireccionIp);
         campMarcamonitor = findViewById(R.id.consulMarcamonitor);
         campModelomonitor = findViewById(R.id.consulModelomonitor);
@@ -96,9 +100,12 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
             public void onClick(View view) {
                 /*actualizarUsuario();*/
 
+                // IP PARA ACTUALIZAR
+
                 String url = "http://192.168.1.68/biopapel-server/edit.php?id=" + id
                         + "&nombre=" + campNombre.getText().toString()
                         + "&departamento=" + campDepartamento.getText().toString()
+                        + "&extension=" + campExtension.getText().toString()
                         + "&direccionip=" + campDireccionIp.getText().toString()
                         + "&marcamonitor=" + campMarcamonitor.getText().toString()
                         + "&modelomonitor=" + campModelomonitor.getText().toString()
@@ -121,6 +128,8 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
              @Override
              public void onClick(View view) {
                 // eliminarUsuario();
+
+                 // IP PARA ELIMINAR
                  String url = "http://192.168.1.68/biopapel-server/edit.php?id=" + id ;
                  deleteData(url);
              }
@@ -313,6 +322,7 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
         id = "";
         campNombre.setText("");
         campDepartamento.setText("");
+        campExtension.setText("");
         campDireccionIp.setText("");
         campMarcamonitor.setText("");
         campModelomonitor.setText("");
@@ -359,6 +369,7 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
                     id = jsonobject.getString("id");
                     nombre = jsonobject.getString("nombre");
                     departamento = jsonobject.getString("departamento");
+                    extension = jsonobject.getString("extension");
                     direccionip = jsonobject.getString("direccionip");
                     marcamonitor = jsonobject.getString("marcamonitor");
                     modelomonitor = jsonobject.getString("modelomonitor");
@@ -394,6 +405,7 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
                 if(!id.equals("")){
                     campNombre.setText(nombre);
                     campDepartamento.setText(departamento);
+                    campExtension.setText(extension);
                     campDireccionIp.setText(direccionip);
                     campMarcamonitor.setText(marcamonitor);
                     campModelomonitor.setText(modelomonitor);

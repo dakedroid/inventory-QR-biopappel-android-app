@@ -42,6 +42,12 @@
                 android:hint="Departamento" />
 
             <EditText
+                android:id="@+id/campExtension"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Extension" />
+
+            <EditText
                 android:id="@+id/campDireccionIp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
