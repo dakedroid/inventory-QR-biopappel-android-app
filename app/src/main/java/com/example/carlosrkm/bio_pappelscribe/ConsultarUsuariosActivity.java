@@ -1,15 +1,11 @@
 package com.example.carlosrkm.bio_pappelscribe;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,27 +15,17 @@ import com.example.carlosrkm.bio_pappelscribe.utilidades.Utilidades;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ConsultarUsuariosActivity extends AppCompatActivity {
 
@@ -49,41 +35,57 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
     Button btnConsulBuscar;
     Button btnConsulActuali;
     Button btnConsulElimin;
-    String url = "http://192.168.1.68/biopapel-server/consult.php?id=";
 
+    String id;
+    String nombre;
+    String departamento;
+    String direccionip;
+    String marcamonitor;
+    String modelomonitor;
+    String seriemonitor;
+    String marcacpu;
+    String modelocpu;
+    String seriecpu;
+    String marcateclado;
+    String modeloteclado;
+    String serieteclado;
+    String marcamouse;
+    String modelomouse;
+    String seriemouse;
+
+    String url = "http://192.168.1.68/biopapel-server/consult.php?id=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_usuarios);
 
-        conn= new ConexionSQLiteHelper(getApplicationContext(), Utilidades.TABLA_USUARIO,null,1);
+        conn = new ConexionSQLiteHelper(getApplicationContext(), Utilidades.TABLA_USUARIO,null,1);
 
         btnConsulBuscar = findViewById(R.id.btnConsulBuscar);
         btnConsulActuali = findViewById(R.id.btnConsulActuali);
         btnConsulElimin = findViewById(R.id.btnConsulElimin);
-        campId= findViewById(R.id.consulId);
-        campNombre= (EditText) findViewById(R.id.consulNombre);
-        campDepartamento= (EditText) findViewById(R.id.consulDepartamento);
-        campDireccionIp= (EditText) findViewById(R.id.consulDireccionIp);
-        campMarcamonitor= (EditText) findViewById(R.id.consulMarcamonitor);
-        campModelomonitor= (EditText) findViewById(R.id.consulModelomonitor);
-        campSeriemonitor= (EditText) findViewById(R.id.consulSeriemonitor);
-        campMarcaCPU= (EditText) findViewById(R.id.consulMarcaCPU);
-        campModeloCPU= (EditText) findViewById(R.id.consulModeloCPU);
-        campSerieCPU= (EditText) findViewById(R.id.consulSerieCPU);
-        campMarcateclado= (EditText) findViewById(R.id.consulMarcateclado);
-        campModeloteclado= (EditText) findViewById(R.id.consulModeloteclado);
-        campSerieteclado= (EditText) findViewById(R.id.consulSerieteclado);
-        campMarcamouse= (EditText) findViewById(R.id.consulMarcamouse);
-        campModelomouse= (EditText) findViewById(R.id.consulModelomouse);
-        campSeriemouse= (EditText) findViewById(R.id.consulSeriemouse);
+        campId = findViewById(R.id.consulId);
+        campNombre=  findViewById(R.id.consulNombre);
+        campDepartamento = findViewById(R.id.consulDepartamento);
+        campDireccionIp = findViewById(R.id.consulDireccionIp);
+        campMarcamonitor = findViewById(R.id.consulMarcamonitor);
+        campModelomonitor = findViewById(R.id.consulModelomonitor);
+        campSeriemonitor = findViewById(R.id.consulSeriemonitor);
+        campMarcaCPU = findViewById(R.id.consulMarcaCPU);
+        campModeloCPU = findViewById(R.id.consulModeloCPU);
+        campSerieCPU = findViewById(R.id.consulSerieCPU);
+        campMarcateclado = findViewById(R.id.consulMarcateclado);
+        campModeloteclado = findViewById(R.id.consulModeloteclado);
+        campSerieteclado = findViewById(R.id.consulSerieteclado);
+        campMarcamouse = findViewById(R.id.consulMarcamouse);
+        campModelomouse = findViewById(R.id.consulModelomouse);
+        campSeriemouse = findViewById(R.id.consulSeriemouse);
 
         btnConsulBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                consultar();
-                //GetData(campId.getText().toString());
+               // consultar();
                 getData(campId.getText().toString());
             }
         });
@@ -91,39 +93,101 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
         btnConsulActuali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                actualizarUsuario();
+                /*actualizarUsuario();*/
+
+                String url = "http://192.168.1.68/biopapel-server/edit.php?id=" + id
+                        + "&nombre=" + campNombre.getText().toString()
+                        + "&departamento=" + campDepartamento.getText().toString()
+                        + "&direccionip=" + campDireccionIp.getText().toString()
+                        + "&marcamonitor=" + campMarcamonitor.getText().toString()
+                        + "&modelomonitor=" + campModelomonitor.getText().toString()
+                        + "&seriemonitor=" + campSeriemonitor.getText().toString()
+                        + "&marcacpu=" + campMarcaCPU.getText().toString()
+                        + "&modelocpu=" + campModeloCPU.getText().toString()
+                        + "&seriecpu=" + campSerieCPU.getText().toString()
+                        + "&marcateclado=" + campMarcateclado.getText().toString()
+                        + "&modeloteclado=" + campModeloteclado.getText().toString()
+                        + "&serieteclado=" + campSerieteclado.getText().toString()
+                        + "&marcamouse=" + campMarcamouse.getText().toString()
+                        + "&modelomouse=" + campModelomouse.getText().toString()
+                        + "&seriemouse=" + campSeriemouse.getText().toString();
+
+                System.out.println("QUERY: " + url);
+                updateData(url);
             }
         });
         btnConsulElimin.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-                 eliminarUsuario();
+                // eliminarUsuario();
+                 String url = "http://192.168.1.68/biopapel-server/edit.php?id=" + id ;
+                 updateData(url);
              }
          });
 
     }
 
-
-
-
-
     private void eliminarUsuario() {
-        SQLiteDatabase db=conn.getReadableDatabase();
-        String[] parametros={campId.getText().toString()};
-
+        SQLiteDatabase db = conn.getReadableDatabase();
+        String[] parametros = {campId.getText().toString()};
         db.delete(Utilidades.TABLA_USUARIO,Utilidades.CAMPO_ID+"=?",parametros);
         Toast.makeText(getApplicationContext(), "YSe elimino el usuario", Toast.LENGTH_LONG).show();
         campId.setText("");
         limpiar();
         db.close();
+    }
 
+    public void updateData(final String url){
+
+        class SendGetReqAsyncTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                try {
+
+                    HttpClient httpClient = new DefaultHttpClient();
+
+                    HttpGet httpGet = new HttpGet(url);
+
+                    httpGet.setParams(new BasicHttpParams());
+
+                    HttpResponse httpResponse = httpClient.execute(httpGet);
+
+                    HttpEntity httpEntity = httpResponse.getEntity();
+
+                    String retSrc = EntityUtils.toString(httpEntity);
+
+                } catch (ClientProtocolException e) {
+
+                } catch (IOException e) {
+
+                }
+
+                return "Información obtenida";
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+
+                Toast.makeText(ConsultarUsuariosActivity.this, "Operacion completada", Toast.LENGTH_LONG).show();
+
+            }
+        }
+
+        SendGetReqAsyncTask sendGetReqAsyncTask = new SendGetReqAsyncTask();
+
+        sendGetReqAsyncTask.execute(url);
 
     }
 
     private void actualizarUsuario() {
         SQLiteDatabase db=conn.getReadableDatabase();
+
         String[] parametros={campId.getText().toString()};
+
         ContentValues values = new ContentValues();
+
         values.put(Utilidades.CAMPO_NOMBRE,campNombre.getText().toString());
         values.put(Utilidades.CAMPO_DEPARTAMENTO,campDepartamento.getText().toString());
         values.put(Utilidades.CAMPO_DIRECCIONIP,campDireccionIp.getText().toString());
@@ -146,34 +210,11 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
 
     }
 
-    private void consult (){
-        SQLiteDatabase db = conn.getReadableDatabase();
-
-        String[] campos={Utilidades.CAMPO_NOMBRE, Utilidades.CAMPO_DEPARTAMENTO,Utilidades.CAMPO_DIRECCIONIP, Utilidades.CAMPO_MARCAMONITOR, Utilidades.CAMPO_MODELOMONITOR, Utilidades.CAMPO_SERIEMONITOR, Utilidades.CAMPO_MARCACPU, Utilidades.CAMPO_MODELOCPU, Utilidades.CAMPO_SERIECPU, Utilidades.CAMPO_MARCATECLADO, Utilidades.CAMPO_MODELOTECLADO, Utilidades.CAMPO_SERIETECLADO, Utilidades.CAMPO_MARCAMOUSE, Utilidades.CAMPO_MODELOMOUSE, Utilidades.CAMPO_SERIEMOUSE};
-        String selectQuery = "SELECT "+  Utilidades.CAMPO_NOMBRE +", "+ Utilidades.CAMPO_DEPARTAMENTO + "  FROM usuario WHERE id=" + campId.getText().toString();
-        Cursor  c = db.rawQuery(selectQuery,null);
-
-        c.moveToFirst();
-
-        Log.i("query", selectQuery);
-
-        Log.i("prueba", c.getString(0));
-
-        /*
-        if (c.moveToFirst()) {
-            temp_address = c.getString(c.getColumnIndex("lastchapter"));
-        }
-        */
-        c.close();
-    }
-
     private void consultar() {
 
-
-
-        SQLiteDatabase db =conn.getReadableDatabase();
-        String[] parametros={campId.getText().toString()};
-        String[] campos={Utilidades.CAMPO_NOMBRE, Utilidades.CAMPO_DEPARTAMENTO,Utilidades.CAMPO_DIRECCIONIP, Utilidades.CAMPO_MARCAMONITOR, Utilidades.CAMPO_MODELOMONITOR, Utilidades.CAMPO_SERIEMONITOR, Utilidades.CAMPO_MARCACPU, Utilidades.CAMPO_MODELOCPU, Utilidades.CAMPO_SERIECPU, Utilidades.CAMPO_MARCATECLADO, Utilidades.CAMPO_MODELOTECLADO, Utilidades.CAMPO_SERIETECLADO, Utilidades.CAMPO_MARCAMOUSE, Utilidades.CAMPO_MODELOMOUSE, Utilidades.CAMPO_SERIEMOUSE};
+        SQLiteDatabase db = conn.getReadableDatabase();
+        String[] parametros = {campId.getText().toString()};
+        String[] campos = {Utilidades.CAMPO_NOMBRE, Utilidades.CAMPO_DEPARTAMENTO, Utilidades.CAMPO_DIRECCIONIP, Utilidades.CAMPO_MARCAMONITOR, Utilidades.CAMPO_MODELOMONITOR, Utilidades.CAMPO_SERIEMONITOR, Utilidades.CAMPO_MARCACPU, Utilidades.CAMPO_MODELOCPU, Utilidades.CAMPO_SERIECPU, Utilidades.CAMPO_MARCATECLADO, Utilidades.CAMPO_MODELOTECLADO, Utilidades.CAMPO_SERIETECLADO, Utilidades.CAMPO_MARCAMOUSE, Utilidades.CAMPO_MODELOMOUSE, Utilidades.CAMPO_SERIEMOUSE};
 
         try {
 
@@ -197,19 +238,16 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
             campModelomouse.setText(cursor.getString(13));
             campSeriemouse.setText(cursor.getString(14));
 
-
             cursor.close();
 
         }catch (Exception e){
             Toast.makeText(getApplicationContext(),"El registro no existe",Toast.LENGTH_LONG).show();
             limpiar();
-
         }
-
-
     }
 
     private void limpiar() {
+        id = "";
         campNombre.setText("");
         campDepartamento.setText("");
         campDireccionIp.setText("");
@@ -227,16 +265,15 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
         campSeriemouse.setText("");
     }
 
-
-
     public void getData(final String p1){
+
+        limpiar();
 
         class SendGetReqAsyncTask extends AsyncTask<String, Void, String> {
             @Override
             protected String doInBackground(String... params) {
 
                 String  Id = p1;
-
 
                 try {
 
@@ -255,11 +292,25 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
                     JSONArray jsonarray = new JSONArray(retSrc);
 
                     JSONObject jsonobject = jsonarray.getJSONObject(0);
-                    String id       = jsonobject.getString("id");
-                    String nombre    = jsonobject.getString("nombre");
 
+                    id = jsonobject.getString("id");
+                    nombre = jsonobject.getString("nombre");
+                    departamento = jsonobject.getString("departamento");
+                    direccionip = jsonobject.getString("direccionip");
+                    marcamonitor = jsonobject.getString("marcamonitor");
+                    modelomonitor = jsonobject.getString("modelomonitor");
+                    seriemonitor = jsonobject.getString("seriemonitor");
+                    marcacpu = jsonobject.getString("marcacpu");
+                    modelocpu = jsonobject.getString("modelocpu");
+                    seriecpu = jsonobject.getString("seriecpu");
+                    marcateclado = jsonobject.getString("marcateclado");
+                    modeloteclado = jsonobject.getString("modeloteclado");
+                    serieteclado = jsonobject.getString("serieteclado");
+                    marcamouse = jsonobject.getString("marcamouse");
+                    modelomouse = jsonobject.getString("modelomouse");
+                    seriemouse = jsonobject.getString("seriemouse");
 
-                    System.out.println("RESPONSE: " + id + " " + nombre);
+                    System.out.println("RESPONSE: " + id);
 
 
                 } catch (ClientProtocolException e) {
@@ -270,16 +321,33 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                return "Data Inserted Successfully";
+                return "Información obtenida";
             }
 
-                @Override
+            @Override
             protected void onPostExecute(String result) {
-
                 super.onPostExecute(result);
 
-                Toast.makeText(ConsultarUsuariosActivity.this, "Data Submit Successfully", Toast.LENGTH_LONG).show();
+                if(!id.equals("")){
+                    campNombre.setText(nombre);
+                    campDepartamento.setText(departamento);
+                    campDireccionIp.setText(direccionip);
+                    campMarcamonitor.setText(marcamonitor);
+                    campModelomonitor.setText(modelomonitor);
+                    campSeriemonitor.setText(seriemonitor);
+                    campMarcaCPU.setText(marcacpu);
+                    campModeloCPU.setText(modelocpu);
+                    campSerieCPU.setText(seriecpu);
+                    campMarcateclado.setText(marcateclado);
+                    campModeloteclado.setText(modeloteclado);
+                    campSerieteclado.setText(serieteclado);
+                    campMarcamouse.setText(marcamouse);
+                    campModelomouse.setText(modelomouse);
+                    campSeriemouse.setText(seriemouse);
 
+                }else {
+                    Toast.makeText(ConsultarUsuariosActivity.this, "No se encontro el registro", Toast.LENGTH_LONG).show();
+                }
             }
         }
 
@@ -288,7 +356,5 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
         sendGetReqAsyncTask.execute(p1);
 
     }
-
-
 }
 
