@@ -4,11 +4,9 @@ package com.example.carlosrkm.bio_pappelscribe;
  * Creado por dakedroid el 17/12/17.
  */
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -34,7 +32,23 @@ public class DemoGeneratorActivity extends AppCompatActivity {
     @BindView(R.id.root_scrollview) ScrollView mScrollView;
     @BindView(R.id.edt_size) EditText mEdtSize;
     @BindView(R.id.img_qr_generated) ImageView mImgQrGenerated;
-    String id;
+    private String id;
+    private String nombre;
+    private String departamento;
+    private String direccionip;
+    private String marcamonitor;
+    private String modelomonitor;
+    private String seriemonitor;
+    private String marcacpu;
+    private String modelocpu;
+    private String seriecpu;
+    private String marcateclado;
+    private String modeloteclado;
+    private String serieteclado;
+    private String marcamouse;
+    private String modelomouse;
+    private String seriemouse;
+
 
     private ErrorCorrectionLevel mEcc = ErrorCorrectionLevel.L;
 
@@ -47,6 +61,21 @@ public class DemoGeneratorActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
+        nombre = intent.getStringExtra("nombre");
+        departamento = intent.getStringExtra("departamento");
+        direccionip = intent.getStringExtra("direccionip");
+        marcamonitor = intent.getStringExtra("marcamonitor");
+        modelomonitor = intent.getStringExtra("modelomonitor");
+        seriemonitor = intent.getStringExtra("seriemonitor");
+        marcacpu = intent.getStringExtra("marcacpu");
+        modelocpu = intent.getStringExtra("modelocpu");
+        seriecpu = intent.getStringExtra("seriecpu");
+        marcateclado = intent.getStringExtra("marcateclado");
+        modeloteclado = intent.getStringExtra("modeloteclado");
+        serieteclado = intent.getStringExtra("serieteclado");
+        marcamouse = intent.getStringExtra("marcamouse");
+        modelomouse = intent.getStringExtra("modelomouse");
+        seriemouse = intent.getStringExtra("seriemouse");
 
     }
 
@@ -73,8 +102,10 @@ public class DemoGeneratorActivity extends AppCompatActivity {
             Toast.makeText(DemoGeneratorActivity.this, "Qr Size Required!", Toast.LENGTH_SHORT).show();
         } else {
             try {
+
+                String content = id + "\n" + nombre + "\n" + departamento + "\n" + direccionip + "\n" + marcamonitor + "\n" + modelomonitor + "\n" + seriemonitor + "\n" + marcacpu + "\n" + modelocpu + "\n" + seriecpu + "\n" + marcateclado + "\n" + modeloteclado + "\n" + serieteclado + "\n" + marcamouse + "\n" + modelomouse + "\n" + seriemouse;
                 Bitmap qrCode = new QrGenerator.Builder()
-                        .content(id)
+                        .content(content)
                         .qrSize(getInputtedInt(mEdtSize, 400))
                         .color(Color.BLACK)
                         .bgColor(Color.WHITE)
@@ -88,9 +119,6 @@ public class DemoGeneratorActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
 
 
     private boolean checkEmpty(EditText e) {

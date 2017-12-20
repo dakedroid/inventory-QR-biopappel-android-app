@@ -1,8 +1,12 @@
 package com.example.carlosrkm.bio_pappelscribe;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +17,30 @@ import android.widget.Toast;
 
 import com.example.carlosrkm.bio_pappelscribe.utilidades.Utilidades;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ConsultarUsuariosActivity extends AppCompatActivity {
 
     EditText campId, campNombre, campDepartamento, campDireccionIp, campMarcamonitor, campModelomonitor, campSeriemonitor, campMarcaCPU, campModeloCPU, campSerieCPU, campMarcateclado, campModeloteclado, campSerieteclado, campMarcamouse, campModelomouse, campSeriemouse;
@@ -21,6 +49,7 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
     Button btnConsulBuscar;
     Button btnConsulActuali;
     Button btnConsulElimin;
+    String url = "http://192.168.1.68/biopapel-server/consult.php?id=";
 
 
     @Override
@@ -30,11 +59,10 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
 
         conn= new ConexionSQLiteHelper(getApplicationContext(), Utilidades.TABLA_USUARIO,null,1);
 
-
         btnConsulBuscar = findViewById(R.id.btnConsulBuscar);
         btnConsulActuali = findViewById(R.id.btnConsulActuali);
         btnConsulElimin = findViewById(R.id.btnConsulElimin);
-        campId= (EditText) findViewById(R.id.consulId);
+        campId= findViewById(R.id.consulId);
         campNombre= (EditText) findViewById(R.id.consulNombre);
         campDepartamento= (EditText) findViewById(R.id.consulDepartamento);
         campDireccionIp= (EditText) findViewById(R.id.consulDireccionIp);
@@ -55,6 +83,8 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 consultar();
+                //GetData(campId.getText().toString());
+                getData(campId.getText().toString());
             }
         });
 
@@ -64,7 +94,7 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
                 actualizarUsuario();
             }
         });
-         btnConsulElimin.setOnClickListener(new View.OnClickListener() {
+        btnConsulElimin.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
                  eliminarUsuario();
@@ -72,6 +102,9 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
          });
 
     }
+
+
+
 
 
     private void eliminarUsuario() {
@@ -135,6 +168,9 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
     }
 
     private void consultar() {
+
+
+
         SQLiteDatabase db =conn.getReadableDatabase();
         String[] parametros={campId.getText().toString()};
         String[] campos={Utilidades.CAMPO_NOMBRE, Utilidades.CAMPO_DEPARTAMENTO,Utilidades.CAMPO_DIRECCIONIP, Utilidades.CAMPO_MARCAMONITOR, Utilidades.CAMPO_MODELOMONITOR, Utilidades.CAMPO_SERIEMONITOR, Utilidades.CAMPO_MARCACPU, Utilidades.CAMPO_MODELOCPU, Utilidades.CAMPO_SERIECPU, Utilidades.CAMPO_MARCATECLADO, Utilidades.CAMPO_MODELOTECLADO, Utilidades.CAMPO_SERIETECLADO, Utilidades.CAMPO_MARCAMOUSE, Utilidades.CAMPO_MODELOMOUSE, Utilidades.CAMPO_SERIEMOUSE};
@@ -190,5 +226,69 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
         campModelomouse.setText("");
         campSeriemouse.setText("");
     }
+
+
+
+    public void getData(final String p1){
+
+        class SendGetReqAsyncTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                String  Id = p1;
+
+
+                try {
+
+                    HttpClient httpClient = new DefaultHttpClient();
+
+                    HttpGet httpGet = new HttpGet(url + Id);
+
+                    httpGet.setParams(new BasicHttpParams());
+
+                    HttpResponse httpResponse = httpClient.execute(httpGet);
+
+                    HttpEntity httpEntity = httpResponse.getEntity();
+
+                    String retSrc = EntityUtils.toString(httpEntity);
+
+                    JSONArray jsonarray = new JSONArray(retSrc);
+
+                    JSONObject jsonobject = jsonarray.getJSONObject(0);
+                    String id       = jsonobject.getString("id");
+                    String nombre    = jsonobject.getString("nombre");
+
+
+                    System.out.println("RESPONSE: " + id + " " + nombre);
+
+
+                } catch (ClientProtocolException e) {
+
+                } catch (IOException e) {
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return "Data Inserted Successfully";
+            }
+
+                @Override
+            protected void onPostExecute(String result) {
+
+                super.onPostExecute(result);
+
+                Toast.makeText(ConsultarUsuariosActivity.this, "Data Submit Successfully", Toast.LENGTH_LONG).show();
+
+            }
+        }
+
+        SendGetReqAsyncTask sendGetReqAsyncTask = new SendGetReqAsyncTask();
+
+        sendGetReqAsyncTask.execute(p1);
+
+    }
+
+
 }
 
