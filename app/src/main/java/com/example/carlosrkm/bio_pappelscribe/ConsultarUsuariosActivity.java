@@ -1,6 +1,7 @@
 package com.example.carlosrkm.bio_pappelscribe;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -121,7 +122,7 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
              public void onClick(View view) {
                 // eliminarUsuario();
                  String url = "http://192.168.1.68/biopapel-server/edit.php?id=" + id ;
-                 updateData(url);
+                 deleteData(url);
              }
          });
 
@@ -170,7 +171,69 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
             protected void onPostExecute(String result) {
                 super.onPostExecute(result);
 
+                startActivity(new Intent(ConsultarUsuariosActivity.this, DemoGeneratorActivity.class)
+                        .putExtra("id", campId.getText().toString())
+                        .putExtra("nombre", campNombre.getText().toString())
+                        .putExtra("departamento", campDepartamento.getText().toString())
+                        .putExtra("direccionip", campDireccionIp.getText().toString())
+                        .putExtra("marcamonitor", campMarcamonitor.getText().toString())
+                        .putExtra("modelomonitor", campModelomonitor.getText().toString())
+                        .putExtra("seriemonitor", campSeriemonitor.getText().toString())
+                        .putExtra("marcacpu", campMarcaCPU.getText().toString())
+                        .putExtra("modelocpu", campModeloCPU.getText().toString())
+                        .putExtra("seriecpu", campSerieCPU.getText().toString())
+                        .putExtra("marcateclado", campMarcateclado.getText().toString())
+                        .putExtra("modeloteclado", campModeloteclado.getText().toString())
+                        .putExtra("serieteclado", campSerieteclado.getText().toString())
+                        .putExtra("marcamouse", campMarcamouse.getText().toString())
+                        .putExtra("modelomouse", campModelomouse.getText().toString())
+                        .putExtra("seriemouse", campSeriemouse.getText().toString()));
+
                 Toast.makeText(ConsultarUsuariosActivity.this, "Operacion completada", Toast.LENGTH_LONG).show();
+
+            }
+        }
+
+        SendGetReqAsyncTask sendGetReqAsyncTask = new SendGetReqAsyncTask();
+
+        sendGetReqAsyncTask.execute(url);
+
+    }
+
+    public void deleteData(final String url){
+
+        class SendGetReqAsyncTask extends AsyncTask<String, Void, String> {
+            @Override
+            protected String doInBackground(String... params) {
+
+                try {
+
+                    HttpClient httpClient = new DefaultHttpClient();
+
+                    HttpGet httpGet = new HttpGet(url);
+
+                    httpGet.setParams(new BasicHttpParams());
+
+                    HttpResponse httpResponse = httpClient.execute(httpGet);
+
+                    HttpEntity httpEntity = httpResponse.getEntity();
+
+                    String retSrc = EntityUtils.toString(httpEntity);
+
+                } catch (ClientProtocolException e) {
+
+                } catch (IOException e) {
+
+                }
+
+                return "Información obtenida";
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+
+                Toast.makeText(ConsultarUsuariosActivity.this, "Registro Elminado", Toast.LENGTH_LONG).show();
 
             }
         }
