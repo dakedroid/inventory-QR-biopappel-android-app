@@ -29,18 +29,24 @@ public class MainActivityGenerator extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     @OnClick(R.id.Main_btn_scan)
     void onScanBtnClick() {
 
-        if (checkSelfPermission(Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED) {
 
-            requestPermissions(new String[]{Manifest.permission.CAMERA},
-                    100);
+                requestPermissions(new String[]{Manifest.permission.CAMERA},
+                        100);
 
-
+            }else {
+                startActivityForResult(
+                        new Intent(MainActivityGenerator.this, QrScannerActivity.class),
+                        QrScannerActivity.QR_REQUEST_CODE);
+            }
         }else {
+
             startActivityForResult(
                     new Intent(MainActivityGenerator.this, QrScannerActivity.class),
                     QrScannerActivity.QR_REQUEST_CODE);

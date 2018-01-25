@@ -57,7 +57,7 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
 
     // IP PARA CONSULTAR
 
-    String url = "http://192.168.1.68/biopapel-server/consult.php?id=";
+    String url = "http://192.168.0.100/biopapel-server/consult.php?id=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +102,7 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
 
                 // IP PARA ACTUALIZAR
 
-                String url = "http://192.168.1.68/biopapel-server/edit.php?id=" + id
+                String url = "http://192.168.0.100/biopapel-server/edit.php?id=" + id
                         + "&nombre=" + campNombre.getText().toString()
                         + "&departamento=" + campDepartamento.getText().toString()
                         + "&extension=" + campExtension.getText().toString()
@@ -130,7 +130,7 @@ public class ConsultarUsuariosActivity extends AppCompatActivity {
                 // eliminarUsuario();
 
                  // IP PARA ELIMINAR
-                 String url = "http://192.168.1.68/biopapel-server/edit.php?id=" + id ;
+                 String url = "http://192.168.0.100/biopapel-server/edit.php?id=" + id ;
                  deleteData(url);
              }
          });

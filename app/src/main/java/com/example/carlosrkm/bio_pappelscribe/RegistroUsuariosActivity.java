@@ -49,7 +49,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
     EditText campoSeriemouse;
     Button button;
 
-    String ServerURL = "http://192.168.1.68/biopapel-server/get_data.php" ;
+    String ServerURL = "http://192.168.0.100/biopapel-server/get_data.php" ;
     String TempId,
             TempNombre,
             TempDepartamento,
